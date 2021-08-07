@@ -229,7 +229,7 @@ for sbj in subject_list:        # 일단 한 subj 안에 들어가면
 
             empty_kps = np.zeros((25, 3))
             kps_final = np.concatenate((empty_kps, kps_final), axis = 0) # <- add another 25 dimension at top 
-            S = np.concatenate((np.array(pred_joints.cpu()), kps_final[25:, -1].reshape(len(pred_joints), 1)), axis = -1)
+            # S = np.concatenate((np.array(pred_joints.cpu()), kps_final[25:, -1].reshape(len(pred_joints), 1)), axis = -1)
 
             images_pred = renderer.visualize_tb(pred_vertices, pred_cam_t, input_img)        
 
@@ -239,7 +239,7 @@ for sbj in subject_list:        # 일단 한 subj 안에 들어가면
             part_list.append(kps_final)
             pose_list.append(np.array(rotmat.squeeze().cpu()))
             shape_list.append(np.array(betas.squeeze().cpu()))
-            S_list.append(S)
+            S_list.append(joint_cam)
 
             imgs = []
             skeleton = torch.from_numpy(np.transpose(make_skeleton(kps[:, :2], images), (2, 0, 1))).float()
